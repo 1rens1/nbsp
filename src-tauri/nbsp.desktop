@@ -1,0 +1,21 @@
+[Desktop Entry]
+Categories={{categories}}
+{{#if comment}}
+Comment={{comment}}
+{{/if}}
+Exec={{exec}} %F
+StartupWMClass={{exec}}
+Icon={{icon}}
+Name={{name}}
+GenericName=Printing utility
+Keywords=print;printer;scan;scanner;pdf;booklet;duplex;
+Terminal=false
+Type=Application
+{{#if mime_type}}
+MimeType={{mime_type}}
+{{/if}}
+Actions=scan;
+
+[Desktop Action scan]
+Name=Scan
+Exec={{exec}} scan

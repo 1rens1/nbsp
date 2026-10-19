@@ -1,0 +1,14 @@
+{
+  "bundle": {
+    "targets": [
+      "dmg"
+    ],
+    "resources": {
+      "lib/libpdfium.so": null,
+      "lib/libpdfium.dylib": "lib/libpdfium.dylib",
+      "resources/cups/install.sh": null,
+      "resources/cups/nbsp-backend": null,
+      "resources/cups/nbsp.ppd": null
+    }
+  }
+}

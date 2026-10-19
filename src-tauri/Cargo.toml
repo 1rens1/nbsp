@@ -1,0 +1,55 @@
+[package]
+name = "nbsp"
+version = "0.1.0"
+description = "No Bull-Shit Print: print, impose and scan"
+authors = ["rens"]
+license = "MIT"
+edition = "2024"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "nbsp_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+clap = { version = "4.6.7", features = ["derive"] }
+clap_complete = "4.6.11"
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["image-png"] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tauri-plugin-dialog = "2"
+tauri-plugin-store = "2"
+tauri-plugin-single-instance = "2"
+pdfium-render = "0.9.4"
+lru = "0.18.5"
+notify = "8.2.0"
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp"] }
+tokio = { version = "1.53.3", features = ["sync", "process", "io-util", "rt", "macros"] }
+clap = { version = "4.6.7", features = ["derive"] }
+clap_complete = "4.6.11"
+zip = { version = "9.0.5", default-features = false, features = ["deflate"] }
+
+
+# Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true
+
+# Faster dev builds: less debuginfo to emit and link, and dependencies optimized once so the app
+# (PDF rendering, image decoding) stays responsive under `tauri dev`.
+[profile.dev]
+debug = "line-tables-only"
+
+[profile.dev.package."*"]
+opt-level = 2

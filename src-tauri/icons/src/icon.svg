@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- NBSP: a sheet leaving a printer. Flat, two-tone, readable at 16px. -->
+  <rect x="64" y="64" width="896" height="896" rx="200" fill="#18181b"/>
+  <rect x="200" y="404" width="624" height="300" rx="72" fill="#3f3f46"/>
+  <rect x="304" y="196" width="416" height="300" rx="28" fill="#fafafa"/>
+  <rect x="304" y="560" width="416" height="268" rx="28" fill="#fafafa"/>
+  <rect x="372" y="634" width="280" height="36" rx="18" fill="#a1a1aa"/>
+  <rect x="372" y="710" width="200" height="36" rx="18" fill="#a1a1aa"/>
+  <circle cx="724" cy="476" r="26" fill="#4ade80"/>
+</svg>

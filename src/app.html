@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%sveltekit.assets%/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NBSP</title>
+    <script>
+      // Same resolution as mode-watcher, applied before first paint.
+      (() => {
+        let mode = 'system';
+        try {
+          mode = localStorage.getItem('mode-watcher-mode') || 'system';
+        } catch {}
+        const dark = mode === 'dark' || (mode === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+        const root = document.documentElement;
+        root.classList.toggle('dark', dark);
+        root.style.colorScheme = dark ? 'dark' : 'light';
+        // The window starts hidden (tauri.conf.json); reveal it once this themed frame is painted.
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => window.__TAURI_INTERNALS__?.invoke('plugin:window|show', { label: 'main' }).catch(() => {}))
+        );
+      })();
+    </script>
+    <style>
+      :root { --boot-bg: oklch(1 0 0); --boot-fg: oklch(0.556 0 0); }
+      :root.dark { --boot-bg: oklch(0.145 0 0); --boot-fg: oklch(0.708 0 0); }
+      html, body { background: var(--boot-bg); margin: 0; }
+      #boot {
+        position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center;
+        background: var(--boot-bg); color: var(--boot-fg); transition: opacity 150ms ease-out;
+      }
+      #boot::after {
+        content: ''; width: 20px; height: 20px; border-radius: 50%;
+        border: 2px solid currentColor; border-right-color: transparent;
+        animation: boot-spin 700ms linear infinite; opacity: 0; animation-delay: 150ms;
+        animation-fill-mode: forwards;
+      }
+      html[data-ready] #boot { opacity: 0; pointer-events: none; }
+      @keyframes boot-spin { from { opacity: 1; transform: rotate(0); } to { opacity: 1; transform: rotate(360deg); } }
+    </style>
+    %sveltekit.head%
+  </head>
+  <body>
+    <div id="boot" aria-busy="true" aria-label="Loading"></div>
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
+</html>

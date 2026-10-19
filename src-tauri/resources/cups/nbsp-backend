@@ -1,0 +1,23 @@
+#!/bin/sh
+# CUPS backend for the NBSP virtual printer: drops each job as a PDF into the spool
+# directory, where the NBSP app picks it up.
+# Args: job-id user title copies options [file]
+
+if [ $# -eq 0 ]; then
+  echo 'file nbsp:/ "NBSP" "NBSP Virtual Printer"'
+  exit 0
+fi
+
+dir=/var/spool/nbsp
+name=$(printf '%s' "$3" | tr -c 'A-Za-z0-9._-' '_' | cut -c1-80)
+tmp="$dir/.$1.part"
+
+if [ -n "$6" ]; then
+  cat "$6" > "$tmp" || exit 1
+else
+  cat > "$tmp" || exit 1
+fi
+
+chmod 0666 "$tmp"
+mv "$tmp" "$dir/$1-${name:-job}.pdf"
+exit 0
