@@ -39,7 +39,7 @@
 
 <Dialog.Root open={kind !== null} onOpenChange={(o) => !o && (kind = null)}>
 	<Dialog.Content class="sm:max-w-sm">
-		<form onsubmit={submit} class="contents">
+		<form onsubmit={submit} class="contents" novalidate>
 			<Dialog.Header>
 				<Dialog.Title>{kind === 'preset' ? 'Save preset' : 'Custom paper size'}</Dialog.Title>
 				<Dialog.Description class={kind === 'preset' ? 'sr-only' : ''}>
