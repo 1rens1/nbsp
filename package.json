@@ -1,6 +1,6 @@
 {
   "name": "nbsp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "No Bull-Shit Print: print, impose and scan for any CUPS printer",
   "type": "module",
   "scripts": {
